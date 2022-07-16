@@ -12,7 +12,7 @@ import (
 func TestServer(t *testing.T) {
 
 	//1 创建一个server 句柄 s
-	s := NewServer("[zinx V0.1]")
+	s := NewServer("[Tigerkin V0.2]")
 
 	//2 开启服务
 	go s.Serve()

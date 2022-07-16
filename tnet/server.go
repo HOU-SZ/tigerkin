@@ -1,6 +1,7 @@
 package tnet
 
 import (
+	"errors"
 	"fmt"
 	"net"
 	"time"
@@ -20,7 +21,18 @@ type Server struct {
 	Port int
 }
 
-//============== 实现 ziface.IServer 里的全部接口方法 ========
+//============== 定义当前客户端链接的handle api ===========
+func CallBackToClient(conn *net.TCPConn, data []byte, cnt int) error {
+	//回显业务
+	fmt.Println("[Conn Handle] CallBackToClient ... ")
+	if _, err := conn.Write(data[:cnt]); err != nil {
+		fmt.Println("write back buf err ", err)
+		return errors.New("CallBackToClient error")
+	}
+	return nil
+}
+
+//============== 实现 tiface.IServer 里的全部接口方法 ========
 
 //开启网络服务
 func (s *Server) Start() {
@@ -42,8 +54,12 @@ func (s *Server) Start() {
 			return
 		}
 
-		//已经监听成功
-		fmt.Println("Start Zinx server  ", s.Name, " success, now listenning...")
+		// 已经监听成功
+		fmt.Println("Start Tigerkin server  ", s.Name, " success, now listenning...")
+
+		// TODO 应该有一个自动生成ID的方法
+		var cid uint32
+		cid = 0
 
 		//3 启动server网络连接业务
 		for {
@@ -56,31 +72,18 @@ func (s *Server) Start() {
 
 			//3.2 TODO Server.Start() 设置服务器最大连接控制,如果超过最大连接，那么则关闭此新的连接
 
-			//3.3 TODO Server.Start() 处理该新连接请求的 业务 方法， 此时应该有 handler 和 conn是绑定的
+			//3.3 将处理该连接请求的业务方法（此处为CallBackToClient，回显业务）和conn绑定，得到Connection对象
+			dealConn := NewConnection(conn, cid, CallBackToClient)
+			cid++
 
-			//这里暂时做一个最大512字节的回显服务
-			go func() {
-				//不断的循环从客户端获取数据
-				for {
-					buf := make([]byte, 512)
-					cnt, err := conn.Read(buf)
-					if err != nil {
-						fmt.Println("Recv buf err ", err)
-						continue
-					}
-					//回显
-					if _, err := conn.Write(buf[:cnt]); err != nil {
-						fmt.Println("Write back buf err ", err)
-						continue
-					}
-				}
-			}()
+			//3.4 启动当前链接的处理业务
+			go dealConn.Start()
 		}
 	}()
 }
 
 func (s *Server) Stop() {
-	fmt.Println("[STOP] Zinx server , name ", s.Name)
+	fmt.Println("[STOP] Tigerkin server , name ", s.Name)
 
 	//TODO  Server.Stop() 将其他需要清理的连接信息或者其他信息 也要一并停止或者清理
 }
