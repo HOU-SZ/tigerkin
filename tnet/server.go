@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/HOU-SZ/tigerkin/tiface"
+	"github.com/HOU-SZ/tigerkin/utils"
 )
 
 //iServer 接口实现，定义一个Server服务类
@@ -38,7 +39,11 @@ func CallBackToClient(conn *net.TCPConn, data []byte, cnt int) error {
 
 //开启网络服务
 func (s *Server) Start() {
-	fmt.Printf("[START] Server is listening at IP: %s, Port %d, is starting\n", s.IP, s.Port)
+	fmt.Printf("[Tigerkin] Server name: %s,listen at IP: %s, Port %d is starting\n", s.Name, s.IP, s.Port)
+	fmt.Printf("[Tigerkin] Version: %s, MaxConn: %d, MaxPacketSize: %d\n",
+		utils.GlobalObject.Version,
+		utils.GlobalObject.MaxConn,
+		utils.GlobalObject.MaxPacketSize)
 
 	//开启一个go routine去做服务端Listener业务
 	go func() {
@@ -112,11 +117,15 @@ func (s *Server) AddRouter(router tiface.IRouter) {
   创建一个服务器句柄
 */
 func NewServer(name string) tiface.IServer {
+	// 由于import utils包时，会自动执行init操作，因此无需下面操作
+	// //先初始化全局配置文件
+	// utils.GlobalObject.Reload()
+
 	s := &Server{
-		Name:      name,
+		Name:      utils.GlobalObject.Name, //从全局参数GlobalObject获取
 		IPVersion: "tcp4",
-		IP:        "0.0.0.0",
-		Port:      7777,
+		IP:        utils.GlobalObject.Host,    //从全局参数GlobalObject获取
+		Port:      utils.GlobalObject.TcpPort, //从全局参数GlobalObject获取
 		Router:    nil,
 	}
 

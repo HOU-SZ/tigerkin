@@ -45,7 +45,7 @@ func (this *PingRouter) PostHandle(request tiface.IRequest) {
 func TestServer(t *testing.T) {
 
 	//1 创建一个server 句柄 s
-	s := NewServer("[Tigerkin V0.3 test]")
+	s := NewServer("[Tigerkin V0.4 test]")
 
 	s.AddRouter(&PingRouter{})
 
