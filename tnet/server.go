@@ -4,7 +4,6 @@ import (
 	"errors"
 	"fmt"
 	"net"
-	"time"
 
 	"github.com/HOU-SZ/tigerkin/tiface"
 	"github.com/HOU-SZ/tigerkin/utils"
@@ -101,9 +100,7 @@ func (s *Server) Serve() {
 	//TODO Server.Serve() 是否在启动服务的时候 还要处理其他的事情呢 可以在这里添加
 
 	//阻塞,否则主Go退出， listenner的go将会退出
-	for {
-		time.Sleep(10 * time.Second)
-	}
+	select {}
 }
 
 //路由功能：给当前服务注册一个路由业务方法，供客户端链接处理使用

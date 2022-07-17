@@ -52,7 +52,7 @@ func (router *HelloZinxRouter) Handle(request tiface.IRequest) {
 func TestServer(t *testing.T) {
 
 	//1 创建一个server 句柄 s
-	s := NewServer("[Tigerkin V0.6 test]")
+	s := NewServer("[Tigerkin V0.7 test]")
 
 	s.AddRouter(0, &PingRouter{})
 	s.AddRouter(1, &HelloZinxRouter{})
