@@ -16,8 +16,12 @@ type PingRouter struct {
 	BaseRouter
 }
 
-//Test Handle
-func (this *PingRouter) Handle(request tiface.IRequest) {
+type HelloZinxRouter struct {
+	BaseRouter
+}
+
+// PingRouter Handle
+func (router *PingRouter) Handle(request tiface.IRequest) {
 	fmt.Println("Call PingRouter Handle")
 	// _, err := request.GetConnection().GetTCPConnection().Write([]byte("ping...ping...ping\n"))
 	// if err != nil {
@@ -33,12 +37,25 @@ func (this *PingRouter) Handle(request tiface.IRequest) {
 	}
 }
 
+// HelloRouter Handle
+func (router *HelloZinxRouter) Handle(request tiface.IRequest) {
+	fmt.Println("Call HelloRouter Handle")
+	// 先读取并验证客户端的数据，再回复客户端
+	fmt.Println("recv from client : msgId=", request.GetMsgID(), ", data=", string(request.GetData()))
+
+	err := request.GetConnection().SendMsg(1, []byte("Hello Tigerkin"))
+	if err != nil {
+		fmt.Println(err)
+	}
+}
+
 func TestServer(t *testing.T) {
 
 	//1 创建一个server 句柄 s
-	s := NewServer("[Tigerkin V0.5 test]")
+	s := NewServer("[Tigerkin V0.6 test]")
 
-	s.AddRouter(&PingRouter{})
+	s.AddRouter(0, &PingRouter{})
+	s.AddRouter(1, &HelloZinxRouter{})
 
 	//2 开启服务
 	go s.Serve()
@@ -50,7 +67,11 @@ func TestServer(t *testing.T) {
 	conn, err := net.Dial("tcp", "127.0.0.1:7777")
 	require.NoError(t, err)
 
-	for i := 0; i < 5; i++ {
+	testMap := make(map[int][2]string)
+	testMap[0] = [2]string{"ping", "pong"}
+	testMap[1] = [2]string{"hello", "Hello Tigerkin"}
+
+	for key, value := range testMap {
 		// _, err := conn.Write([]byte("hahaha"))
 		// require.NoError(t, err)
 		// buf := make([]byte, 512)
@@ -62,7 +83,7 @@ func TestServer(t *testing.T) {
 
 		// 发送封包message消息
 		dp := NewDataPack()
-		msg, _ := dp.Pack(NewMsgPackage(0, []byte("ping")))
+		msg, _ := dp.Pack(NewMsgPackage(uint32(key), []byte(value[0])))
 		_, err := conn.Write(msg)
 		require.NoError(t, err)
 
@@ -86,7 +107,7 @@ func TestServer(t *testing.T) {
 
 			fmt.Println("==> Recv Msg: ID=", msg.Id, ", len=", msg.DataLen, ", data=", string(msg.Data))
 			require.Equal(t, uint32(1), msg.Id)
-			require.Equal(t, "pong", string(msg.Data))
+			require.Equal(t, value[1], string(msg.Data))
 		}
 
 		time.Sleep(1 * time.Second)
