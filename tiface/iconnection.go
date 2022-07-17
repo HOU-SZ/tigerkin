@@ -21,7 +21,7 @@ type IConnection interface {
 	RemoteAddr() net.Addr
 
 	// 直接将数据发送数据给远程的TCP客户端
-	Send(data []byte) error
+	SendMsg(msgId uint32, data []byte) error
 
 	// 将数据发送给缓冲队列，通过专门从缓冲队列读数据的go写给客户端
 	SendBuff(data []byte) error

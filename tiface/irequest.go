@@ -7,4 +7,5 @@ package tiface
 type IRequest interface {
 	GetConnection() IConnection // 获取请求的链接信息
 	GetData() []byte            // 获取请求的消息数据
+	GetMsgID() uint32           //获取请求的消息ID
 }
