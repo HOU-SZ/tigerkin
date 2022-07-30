@@ -32,6 +32,8 @@ type GlobalObj struct {
 
 	WorkerPoolSize   uint32 //业务工作Worker池的goroutine数量
 	MaxWorkerTaskLen uint32 //每个worker对应的消息队列中任务数量的最大值
+
+	MaxMsgChanLen uint32 //SendBuffMsg发送消息的缓冲最大长度
 }
 
 /*
@@ -66,7 +68,7 @@ func init() {
 	//初始化GlobalObject变量，设置一些默认值
 	GlobalObject = &GlobalObj{
 		Name:          "TigerkinServerApp",
-		Version:       "V0.9",
+		Version:       "V1.0",
 		TcpPort:       7777,
 		Host:          "0.0.0.0",
 		MaxConn:       100,
@@ -74,6 +76,7 @@ func init() {
 
 		WorkerPoolSize:   10,
 		MaxWorkerTaskLen: 1024,
+		MaxMsgChanLen:    1024,
 	}
 
 	//从配置文件conf/tigerkin.json中加载一些用户配置的参数

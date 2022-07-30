@@ -20,11 +20,11 @@ type IConnection interface {
 	// 获取远程客户端地址信息
 	RemoteAddr() net.Addr
 
-	// 直接将数据发送数据给远程的TCP客户端
+	// 将数据发送给无缓冲队列，通过专门从队列读数据的goroutine写给TCP客户端（无缓冲）
 	SendMsg(msgId uint32, data []byte) error
 
-	// 将数据发送给缓冲队列，通过专门从缓冲队列读数据的go写给客户端
-	SendBuff(data []byte) error
+	// 将数据发送给有缓冲队列，通过专门从缓冲队列读数据的goroutine写给TCP客户端（有缓冲）
+	SendBuffMsg(msgId uint32, data []byte) error
 }
 
 // //定义一个统一处理链接业务的接口
