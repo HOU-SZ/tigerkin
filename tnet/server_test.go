@@ -52,10 +52,19 @@ func (router *HelloRouter) Handle(request tiface.IRequest) {
 
 func DoConnectionBegin(conn tiface.IConnection) {
 	fmt.Println("=============DoConnectionBegin is called=============")
+	conn.SetProperty("Name", "Shizheng Hou")
+	conn.SetProperty("GitHub", "https://github.com/HOU-SZ")
 }
 
 func DoConnectionEnd(conn tiface.IConnection) {
 	fmt.Println("=============DoConnectionEnd is called=============")
+
+	if name, err := conn.GetProperty("name"); err != nil {
+		fmt.Println("Name = ", name)
+	}
+	if github, err := conn.GetProperty("GitHub"); err != nil {
+		fmt.Println("GitHub = ", github)
+	}
 }
 
 func StartTestServer() {

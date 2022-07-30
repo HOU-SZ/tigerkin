@@ -25,6 +25,15 @@ type IConnection interface {
 
 	// 将数据发送给有缓冲队列，通过专门从缓冲队列读数据的goroutine写给TCP客户端（有缓冲）
 	SendBuffMsg(msgId uint32, data []byte) error
+
+	// 设置链接属性
+	SetProperty(key string, value interface{})
+
+	// 获取链接属性
+	GetProperty(key string) (interface{}, error)
+
+	// 移除链接属性
+	RemoveProperty(key string)
 }
 
 // //定义一个统一处理链接业务的接口

@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"net"
+	"sync"
 
 	"github.com/HOU-SZ/tigerkin/tiface"
 	"github.com/HOU-SZ/tigerkin/utils"
@@ -39,8 +40,13 @@ type Connection struct {
 	// 无缓冲管道，用于读、写两个goroutine之间的消息通信
 	msgChan chan []byte
 
-	//有缓冲管道，用于读、写两个goroutine之间的消息通信
+	// 有缓冲管道，用于读、写两个goroutine之间的消息通信
 	msgBuffChan chan []byte
+
+	// 链接属性集合
+	property map[string]interface{}
+	// 保护链接属性修改的锁
+	propertyLock sync.RWMutex
 }
 
 func NewConnection(server tiface.IServer, conn *net.TCPConn, connID uint32, msgHandler tiface.IMsgHandle) *Connection {
@@ -53,6 +59,7 @@ func NewConnection(server tiface.IServer, conn *net.TCPConn, connID uint32, msgH
 		ExitBuffChan: make(chan bool, 1),
 		msgChan:      make(chan []byte),
 		msgBuffChan:  make(chan []byte, utils.GlobalObject.MaxMsgChanLen),
+		property:     make(map[string]interface{}),
 	}
 
 	// 将新创建的Conn添加到链接管理中
@@ -162,8 +169,6 @@ func (c *Connection) StartWriter() {
 					fmt.Println("Send Data error:, ", err, " Conn Writer exit")
 					return
 				}
-			} else {
-				fmt.Println("msgBuffChan is Closed")
 			}
 
 		case data, ok := <-c.msgBuffChan:
@@ -173,8 +178,6 @@ func (c *Connection) StartWriter() {
 					fmt.Println("Send Buff Data error:, ", err, " Conn Writer exit")
 					return
 				}
-			} else {
-				fmt.Println("msgBuffChan is Closed")
 			}
 
 		case <-c.ExitBuffChan:
@@ -285,4 +288,32 @@ func (c *Connection) SendBuffMsg(msgId uint32, data []byte) error {
 	c.msgBuffChan <- msg
 
 	return nil
+}
+
+// 设置链接属性
+func (c *Connection) SetProperty(key string, value interface{}) {
+	c.propertyLock.Lock()
+	defer c.propertyLock.Unlock()
+
+	c.property[key] = value
+}
+
+// 获取链接属性
+func (c *Connection) GetProperty(key string) (interface{}, error) {
+	c.propertyLock.RLock()
+	defer c.propertyLock.RUnlock()
+
+	if value, ok := c.property[key]; ok {
+		return value, nil
+	} else {
+		return nil, errors.New("the property was not found")
+	}
+}
+
+// 移除链接属性
+func (c *Connection) RemoveProperty(key string) {
+	c.propertyLock.Lock()
+	defer c.propertyLock.Unlock()
+
+	delete(c.property, key)
 }

@@ -68,7 +68,7 @@ func init() {
 	//初始化GlobalObject变量，设置一些默认值
 	GlobalObject = &GlobalObj{
 		Name:          "TigerkinServerApp",
-		Version:       "V1.0",
+		Version:       "V0.11",
 		TcpPort:       7777,
 		Host:          "0.0.0.0",
 		MaxConn:       100,
