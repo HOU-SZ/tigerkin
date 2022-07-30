@@ -12,6 +12,9 @@ import (
 
 // 创建连接的方法
 type Connection struct {
+	// 当前Conn属于哪个Server
+	TcpServer tiface.IServer
+
 	// 当前连接的socket TCP套接字
 	Conn *net.TCPConn
 
@@ -42,8 +45,9 @@ type Connection struct {
 
 }
 
-func NewConnection(conn *net.TCPConn, connID uint32, msgHandler tiface.IMsgHandle) *Connection {
+func NewConnection(server tiface.IServer, conn *net.TCPConn, connID uint32, msgHandler tiface.IMsgHandle) *Connection {
 	c := &Connection{
+		TcpServer:    server,
 		Conn:         conn,
 		ConnID:       connID,
 		isClosed:     false,
@@ -52,6 +56,9 @@ func NewConnection(conn *net.TCPConn, connID uint32, msgHandler tiface.IMsgHandl
 		msgChan:      make(chan []byte),
 		// SendBuffChan: make(chan []byte, 512),
 	}
+
+	// 将新创建的Conn添加到链接管理中
+	c.TcpServer.GetConnMgr().Add(c)
 
 	return c
 }
@@ -174,6 +181,9 @@ func (c *Connection) Start() {
 	// 2 开启用于写回客户端数据流程的Goroutine
 	go c.StartWriter()
 
+	// 按照用户传递进来的创建连接时需要处理的业务，执行对应hook方法
+	c.TcpServer.CallOnConnStart(c)
+
 	for {
 		select {
 		case <-c.ExitBuffChan:
@@ -191,13 +201,17 @@ func (c *Connection) Stop() {
 	}
 	c.isClosed = true
 
-	// TODO: Connection Stop() 如果用户注册了该链接的关闭回调业务，那么在此刻应该显示调用
+	// 如果用户注册了该链接的关闭回调业务，那么在此刻应该显示调用对应的hook方法
+	c.TcpServer.CallOnConnStop(c)
 
 	// 关闭socket链接
 	c.Conn.Close()
 
 	// 通知从缓冲队列读数据的业务，该链接已经关闭
 	c.ExitBuffChan <- true
+
+	//将链接从连接管理器中删除
+	c.TcpServer.GetConnMgr().Remove(c)
 
 	// 关闭该链接全部管道，回收资源
 	close(c.ExitBuffChan)

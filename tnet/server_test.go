@@ -50,14 +50,27 @@ func (router *HelloRouter) Handle(request tiface.IRequest) {
 	}
 }
 
+func DoConnectionBegin(conn tiface.IConnection) {
+	fmt.Println("=============DoConnectionBegin is called=============")
+}
+
+func DoConnectionEnd(conn tiface.IConnection) {
+	fmt.Println("=============DoConnectionEnd is called=============")
+}
+
 func StartTestServer() {
 	//1 创建一个server 句柄 s
-	s := NewServer("[Tigerkin V0.7 test]")
+	s := NewServer("[Tigerkin test]")
 
+	//2 注册当前链接的hook函数
+	s.SetOnConnStart(DoConnectionBegin)
+	s.SetOnConnStop(DoConnectionEnd)
+
+	//3 注册路由
 	s.AddRouter(0, &PingRouter{})
 	s.AddRouter(1, &HelloRouter{})
 
-	//2 开启服务
+	//4 开启服务
 	go s.Serve()
 
 	fmt.Println("Test ... start")
@@ -71,7 +84,7 @@ func TestServer(t *testing.T) {
 
 	var wg sync.WaitGroup
 
-	for i := 0; i < int(3); i++ {
+	for i := 0; i < int(2); i++ {
 		wg.Add(1)
 		go func() {
 			defer wg.Done()

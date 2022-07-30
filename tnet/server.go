@@ -21,6 +21,12 @@ type Server struct {
 	Port int
 	//当前Server的消息管理模块，用来绑定MsgId和对应的业务处理api
 	msgHandler tiface.IMsgHandle
+	//当前Server的链接管理器
+	ConnMgr tiface.IConnManager
+	// 该Server的连接创建时Hook函数
+	OnConnStart func(conn tiface.IConnection)
+	// 该Server的连接断开时的Hook函数
+	OnConnStop func(conn tiface.IConnection)
 }
 
 //============== 定义当前客户端链接的handle api ===========
@@ -79,10 +85,15 @@ func (s *Server) Start() {
 				continue
 			}
 
-			//3.2 TODO Server.Start() 设置服务器最大连接控制,如果超过最大连接，那么则关闭此新的连接
+			//3.2 设置服务器最大连接控制,如果超过最大连接包，那么则关闭此新的连接
+			if s.ConnMgr.Len() >= utils.GlobalObject.MaxConn {
+				// TODO 给客户端响应一个超出最大连接数的错误包
+				conn.Close()
+				continue
+			}
 
 			//3.3 将处理该连接请求的业务方法（此处为CallBackToClient，回显业务）和conn绑定，得到Connection对象
-			dealConn := NewConnection(conn, cid, s.msgHandler)
+			dealConn := NewConnection(s, conn, cid, s.msgHandler)
 			cid++
 
 			//3.4 启动当前链接的处理业务
@@ -93,6 +104,7 @@ func (s *Server) Start() {
 
 func (s *Server) Stop() {
 	fmt.Println("[STOP] Tigerkin server , name ", s.Name)
+	s.ConnMgr.ClearConn()
 
 	//TODO  Server.Stop() 将其他需要清理的连接信息或者其他信息 也要一并停止或者清理
 }
@@ -111,6 +123,37 @@ func (s *Server) AddRouter(msgId uint32, router tiface.IRouter) {
 	s.msgHandler.AddRouter(msgId, router)
 }
 
+// 得到当前server的链接管理模块
+func (s *Server) GetConnMgr() tiface.IConnManager {
+	return s.ConnMgr
+}
+
+// 设置该Server的连接创建时Hook函数
+func (s *Server) SetOnConnStart(hookFunc func(tiface.IConnection)) {
+	s.OnConnStart = hookFunc
+}
+
+// 设置该Server的连接断开时的Hook函数
+func (s *Server) SetOnConnStop(hookFunc func(tiface.IConnection)) {
+	s.OnConnStop = hookFunc
+}
+
+// 调用连接OnConnStart Hook函数
+func (s *Server) CallOnConnStart(conn tiface.IConnection) {
+	if s.OnConnStart != nil {
+		fmt.Println("------Call onConnStart()------")
+		s.OnConnStart(conn)
+	}
+}
+
+// 调用连接OnConnStop Hook函数
+func (s *Server) CallOnConnStop(conn tiface.IConnection) {
+	if s.OnConnStop != nil {
+		fmt.Println("------Call onConnStop()------")
+		s.OnConnStop(conn)
+	}
+}
+
 /*
   创建一个服务器句柄
 */
@@ -125,6 +168,7 @@ func NewServer(name string) tiface.IServer {
 		IP:         utils.GlobalObject.Host,    //从全局参数GlobalObject获取
 		Port:       utils.GlobalObject.TcpPort, //从全局参数GlobalObject获取
 		msgHandler: NewMsgHandle(),
+		ConnMgr:    NewConnManager(),
 	}
 
 	return s
