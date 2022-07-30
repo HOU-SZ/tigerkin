@@ -7,6 +7,7 @@ import (
 	"net"
 
 	"github.com/HOU-SZ/tigerkin/tiface"
+	"github.com/HOU-SZ/tigerkin/utils"
 )
 
 // 创建连接的方法
@@ -125,8 +126,18 @@ func (c *Connection) StartReader() {
 		// 	c.Router.PostHandle(request)
 		// }(&req)
 
-		// V0.6 从绑定好的消息和对应的处理方法中执行对应的Handle方法
-		go c.MsgHandler.DoMsgHandler(&req)
+		// // V0.6 从绑定好的消息和对应的处理方法中执行对应的Handle方法
+		// go c.MsgHandler.DoMsgHandler(&req)
+
+		// V0.8 添加工作池机制，应对大量并发请求
+		if utils.GlobalObject.WorkerPoolSize > 0 {
+			// 已经启动工作池机制，将消息交给Worker处理
+			fmt.Println("Has started worker pool, send request to TaskQueue")
+			c.MsgHandler.SendMsgToTaskQueue(&req)
+		} else {
+			// 未启用工作池机制，从绑定好的消息和对应的处理方法中执行对应的Handle方法
+			go c.MsgHandler.DoMsgHandler(&req)
+		}
 	}
 
 }
