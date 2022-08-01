@@ -84,8 +84,8 @@ func TestDataPack(t *testing.T) {
 	// 模拟粘包过程，封装两个msg一起发送
 	// 封装第一个msg包
 	msg1 := &Message{
-		Id:      0,
 		DataLen: 5,
+		Id:      0,
 		Data:    []byte{'h', 'e', 'l', 'l', 'o'},
 	}
 
@@ -97,8 +97,8 @@ func TestDataPack(t *testing.T) {
 
 	// 封装第二个msg包
 	msg2 := &Message{
-		Id:      1,
 		DataLen: 8,
+		Id:      1,
 		Data:    []byte{'t', 'i', 'g', 'e', 'r', 'k', 'i', 'n'},
 	}
 	sendData2, err := dp.Pack(msg2) // 封包成二进制数据

@@ -95,6 +95,7 @@ func (c *Connection) StartReader() {
 			fmt.Println("read msg head error: ", err)
 			break
 		}
+		fmt.Printf("read headData: %+v\n", headData)
 
 		// 拆包，得到msgId 和 dataLen 放在msg中
 		msg, err := dp.Unpack(headData)
@@ -169,6 +170,7 @@ func (c *Connection) StartWriter() {
 					fmt.Println("Send Data error:, ", err, " Conn Writer exit")
 					return
 				}
+				fmt.Printf("Send data success! data = %+v\n", data)
 			}
 
 		case data, ok := <-c.msgBuffChan:
