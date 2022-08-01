@@ -84,6 +84,7 @@ func (s *Server) Start() {
 				fmt.Println("Accept err ", err)
 				continue
 			}
+			fmt.Println("Get client connection, remote address = ", conn.RemoteAddr().String())
 
 			//3.2 设置服务器最大连接控制,如果超过最大连接包，那么则关闭此新的连接
 			if s.ConnMgr.Len() >= utils.GlobalObject.MaxConn {
@@ -102,6 +103,7 @@ func (s *Server) Start() {
 	}()
 }
 
+// 停止服务
 func (s *Server) Stop() {
 	fmt.Println("[STOP] Tigerkin server , name ", s.Name)
 
@@ -109,6 +111,7 @@ func (s *Server) Stop() {
 	s.ConnMgr.ClearConn()
 }
 
+// 运行服务
 func (s *Server) Serve() {
 	s.Start()
 
