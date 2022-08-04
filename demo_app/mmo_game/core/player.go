@@ -3,6 +3,7 @@ package core
 import (
 	"fmt"
 	"math/rand"
+	"sync"
 
 	"github.com/HOU-SZ/tigerkin/demo_app/mmo_game/pb"
 	"github.com/HOU-SZ/tigerkin/tiface"
@@ -19,10 +20,22 @@ type Player struct {
 	V    float32            // 旋转0-360度
 }
 
+/*
+	Player ID 生成器
+*/
+var PidGen int32 = 1  // 用来生成玩家ID的计数器
+var IdLock sync.Mutex // 保护PidGen的互斥机制
+
 // 创建一个玩家对象
-func NewPlayer(conn tiface.IConnection, pid int32) *Player {
+func NewPlayer(conn tiface.IConnection) *Player {
+	// 生成一个PID
+	IdLock.Lock()
+	id := PidGen
+	PidGen++
+	IdLock.Unlock()
+
 	p := &Player{
-		Pid:  pid,
+		Pid:  id,
 		Conn: conn,
 		X:    float32(160 + rand.Intn(10)), // 随机在160坐标点 基于X轴偏移若干坐标
 		Y:    0,                            // 高度为0
@@ -62,15 +75,78 @@ func (p *Player) BroadCastStartPosition() {
 	p.SendMsg(200, msg)
 }
 
-// 广播玩家的自身地理位置信息
+// 广播玩家的自身地理位置信息（告知周边玩家自己上线信息，并告知自己周边玩家信息）
 func (p *Player) SyncSurrounding() {
-	//TODO 根据自己的位子，获取周围九宫格内的玩家PID
+	// 1 根据自己的位置，获取周围九宫格内的玩家pid
+	pids := WorldMgrObj.AoiMgr.GetPidsByPos(p.X, p.Z)
+	// 2 根据pid得到所有玩家对象
+	players := make([]*Player, 0, len(pids))
+	// 3 给这些玩家发送MsgID:200消息，让自己出现在对方视野中
+	for _, pid := range pids {
+		players = append(players, WorldMgrObj.GetPlayerByPid(int32(pid)))
+	}
+	// 3.1 组建MsgId为200的proto数据
+	msg := &pb.BroadCast{
+		Pid: p.Pid,
+		Tp:  2, //TP为2 代表广播坐标
+		Data: &pb.BroadCast_P{
+			P: &pb.Position{
+				X: p.X,
+				Y: p.Y,
+				Z: p.Z,
+				V: p.V,
+			},
+		},
+	}
+	// 3.2 每个玩家分别给对应的客户端发送200消息，显示人物
+	for _, player := range players {
+		player.SendMsg(200, msg)
+	}
 
-	//TODO 根据获取的PID集合， 获取所有的玩家信息
+	// 4 让周围九宫格内的玩家出现在自己的视野中
+	// 4.1 制作Message SyncPlayers 数据
+	playersData := make([]*pb.Player, 0, len(players))
+	for _, player := range players {
+		p := &pb.Player{
+			Pid: player.Pid,
+			P: &pb.Position{
+				X: player.X,
+				Y: player.Y,
+				Z: player.Z,
+				V: player.V,
+			},
+		}
+		playersData = append(playersData, p)
+	}
 
-	//TODO 构建自己的上线地点坐标
+	// 4.2 封装SyncPlayer protobuf数据
+	SyncPlayersMsg := &pb.SyncPlayers{
+		Ps: playersData[:],
+	}
 
-	//TODO
+	// 4.3 给当前玩家发送需要显示周围的全部玩家数据
+	p.SendMsg(202, SyncPlayersMsg)
+}
+
+// 玩家广播聊天消息
+func (p *Player) Talk(content string) {
+	// 1. 组建MsgId200 proto数据
+	msg := &pb.BroadCast{
+		Pid: p.Pid,
+		Tp:  1, //TP 1 代表聊天广播
+		Data: &pb.BroadCast_Content{
+			Content: content,
+		},
+	}
+
+	// 2. 得到当前世界所有的在线玩家
+	players := WorldMgrObj.GetAllPlayers()
+
+	// 3. 向所有的玩家发送MsgId:200消息
+	for _, player := range players {
+		// 每个player分别给对应的客户端发送消息
+		player.SendMsg(200, msg)
+	}
 }
 
 /*

@@ -26,3 +26,17 @@ message BroadCast {
     int32 ActionData = 5; // 玩家动作
   }
 }
+
+// 玩家聊天数据
+message Talk {
+  string Content = 1; //聊天内容
+}
+
+// 玩家信息
+message Player {
+  int32 Pid = 1;
+  Position P = 2;
+}
+
+// 同步周围玩家信息到当前客户端
+message SyncPlayers { repeated Player ps = 1; }
