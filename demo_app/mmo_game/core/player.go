@@ -37,9 +37,9 @@ func NewPlayer(conn tiface.IConnection) *Player {
 	p := &Player{
 		Pid:  id,
 		Conn: conn,
-		X:    float32(160 + rand.Intn(50)), // 随机在160坐标点 基于X轴偏移若干坐标
+		X:    float32(160 + rand.Intn(20)), // 随机在160坐标点 基于X轴偏移若干坐标
 		Y:    0,                            // 高度为0
-		Z:    float32(134 + rand.Intn(50)), // 随机在134坐标点 基于Y轴偏移若干坐标
+		Z:    float32(134 + rand.Intn(20)), // 随机在134坐标点 基于Y轴偏移若干坐标
 		V:    0,                            // 角度为0，尚未实现
 	}
 
@@ -306,6 +306,26 @@ func (p *Player) OnExchangeAoiGrid(oldGid, newGid int) error {
 	}
 
 	return nil
+}
+
+// 玩家下线
+func (p *Player) LostConnection() {
+	// 1 获取周围AOI九宫格内的玩家
+	players := p.GetSurroundingPlayers()
+
+	// 2 封装MsgID:201消息
+	msg := &pb.SyncPid{
+		Pid: p.Pid,
+	}
+
+	// 3 向周围玩家发送消息
+	for _, player := range players {
+		player.SendMsg(201, msg)
+	}
+
+	// 4 世界管理器将当前玩家从AOI中移除
+	WorldMgrObj.AoiMgr.RemoveFromGridByPos(int(p.Pid), p.X, p.Z)
+	WorldMgrObj.RemovePlayerByPid(p.Pid)
 }
 
 /*
