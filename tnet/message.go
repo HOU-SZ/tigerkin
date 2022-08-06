@@ -1,9 +1,12 @@
 package tnet
 
 type Message struct {
-	DataLen uint32 // 消息的长度
-	Id      uint32 // 消息的ID
-	Data    []byte // 消息的内容
+	// 消息的长度
+	DataLen uint32
+	// 消息的ID
+	Id uint32
+	// 消息的内容
+	Data []byte
 }
 
 // 创建一个Message消息包

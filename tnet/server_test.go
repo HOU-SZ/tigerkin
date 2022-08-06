@@ -69,7 +69,7 @@ func DoConnectionEnd(conn tiface.IConnection) {
 
 func StartTestServer() {
 	//1 创建一个server 句柄 s
-	s := NewServer("[Tigerkin test]")
+	s := NewServer()
 
 	//2 注册当前链接的hook函数
 	s.SetOnConnStart(DoConnectionBegin)

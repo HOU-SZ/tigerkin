@@ -1,0 +1,311 @@
+Initialize engine version: 5.4.1f1 (649f48bbbf0f)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: NVIDIA GeForce RTX 3060 Laptop GPU (ID=0x2520)
+    Vendor:   NVIDIA
+    VRAM:     3072 MB
+Begin MonoManager ReloadAssembly
+Platform assembly: C:\Users\Shizheng\Desktop\Golang\tigerkin\demo_app\mmo_game\client\client_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\Shizheng\Desktop\Golang\tigerkin\demo_app\mmo_game\client\client_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\Shizheng\Desktop\Golang\tigerkin\demo_app\mmo_game\client\client_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\Shizheng\Desktop\Golang\tigerkin\demo_app\mmo_game\client\client_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\Shizheng\Desktop\Golang\tigerkin\demo_app\mmo_game\client\client_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\Users\Shizheng\Desktop\Golang\tigerkin\demo_app\mmo_game\client\client_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: C:\Users\Shizheng\Desktop\Golang\tigerkin\demo_app\mmo_game\client\client_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading C:\Users\Shizheng\Desktop\Golang\tigerkin\demo_app\mmo_game\client\client_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: C:\Users\Shizheng\Desktop\Golang\tigerkin\demo_app\mmo_game\client\client_Data\Managed\Google.Protobuf.dll (this message is harmless)
+Loading C:\Users\Shizheng\Desktop\Golang\tigerkin\demo_app\mmo_game\client\client_Data\Managed\Google.Protobuf.dll into Unity Child Domain
+Platform assembly: C:\Users\Shizheng\Desktop\Golang\tigerkin\demo_app\mmo_game\client\client_Data\Managed\protobuf-net.dll (this message is harmless)
+Loading C:\Users\Shizheng\Desktop\Golang\tigerkin\demo_app\mmo_game\client\client_Data\Managed\protobuf-net.dll into Unity Child Domain
+- Completed reload, in  0.049 seconds
+Platform assembly: C:\Users\Shizheng\Desktop\Golang\tigerkin\demo_app\mmo_game\client\client_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: C:\Users\Shizheng\Desktop\Golang\tigerkin\demo_app\mmo_game\client\client_Data\Managed\System.dll (this message is harmless)
+desktop: 2560x1600 60Hz; virtual: 6720x1998 at 0,0
+<RI> Initializing input.
+XInput1_3.dll not found. Trying XInput9_1_0.dll instead...
+<RI> Input initialized.
+<RI> Initialized touch support.
+UnloadTime: 0.578100 ms
+Setting up 4 worker threads for Enlighten.
+  Thread -> id: d1f8 -> priority: 1 
+  Thread -> id: c1b4 -> priority: 1 
+  Thread -> id: 7c34 -> priority: 1 
+  Thread -> id: d2a4 -> priority: 1 
+Unloading 6 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 2.640400 ms
+
+Unloading 11 unused Assets to reduce memory usage. Loaded Objects now: 368.
+Total: 0.471400 ms (FindLiveObjects: 0.023400 ms CreateObjectMapping: 0.019800 ms MarkObjects: 0.250200 ms  DeleteObjects: 0.176500 ms)
+
+Parent of RectTransform is being set with parent property. Consider using the SetParent method instead, with the worldPositionStays argument set to false. This will retain local orientation and scale rather than world orientation and scale, which can prevent common UI scaling issues.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Connect: 10.249.151.191:8999
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Connect Suc
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+PlayerController singleton already created!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Player: { "pid": 1 }
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+202 count:　1
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Start Game
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Initialize engine version: 5.4.1f1 (649f48bbbf0f)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: NVIDIA GeForce RTX 3060 Laptop GPU (ID=0x2520)
+    Vendor:   NVIDIA
+    VRAM:     3072 MB
+Begin MonoManager ReloadAssembly
+Platform assembly: C:\Users\Shizheng\Desktop\Golang\tigerkin\demo_app\mmo_game\client\client_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\Shizheng\Desktop\Golang\tigerkin\demo_app\mmo_game\client\client_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\Shizheng\Desktop\Golang\tigerkin\demo_app\mmo_game\client\client_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\Shizheng\Desktop\Golang\tigerkin\demo_app\mmo_game\client\client_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\Shizheng\Desktop\Golang\tigerkin\demo_app\mmo_game\client\client_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\Users\Shizheng\Desktop\Golang\tigerkin\demo_app\mmo_game\client\client_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: C:\Users\Shizheng\Desktop\Golang\tigerkin\demo_app\mmo_game\client\client_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading C:\Users\Shizheng\Desktop\Golang\tigerkin\demo_app\mmo_game\client\client_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: C:\Users\Shizheng\Desktop\Golang\tigerkin\demo_app\mmo_game\client\client_Data\Managed\Google.Protobuf.dll (this message is harmless)
+Loading C:\Users\Shizheng\Desktop\Golang\tigerkin\demo_app\mmo_game\client\client_Data\Managed\Google.Protobuf.dll into Unity Child Domain
+Platform assembly: C:\Users\Shizheng\Desktop\Golang\tigerkin\demo_app\mmo_game\client\client_Data\Managed\protobuf-net.dll (this message is harmless)
+Loading C:\Users\Shizheng\Desktop\Golang\tigerkin\demo_app\mmo_game\client\client_Data\Managed\protobuf-net.dll into Unity Child Domain
+- Completed reload, in  0.047 seconds
+Platform assembly: C:\Users\Shizheng\Desktop\Golang\tigerkin\demo_app\mmo_game\client\client_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: C:\Users\Shizheng\Desktop\Golang\tigerkin\demo_app\mmo_game\client\client_Data\Managed\System.dll (this message is harmless)
+desktop: 2560x1600 60Hz; virtual: 6720x1998 at 0,0
+<RI> Initializing input.
+XInput1_3.dll not found. Trying XInput9_1_0.dll instead...
+<RI> Input initialized.
+<RI> Initialized touch support.
+UnloadTime: 0.687800 ms
+Setting up 4 worker threads for Enlighten.
+  Thread -> id: 68f4 -> priority: 1 
+  Thread -> id: 84c8 -> priority: 1 
+  Thread -> id: c2fc -> priority: 1 
+  Thread -> id: d02c -> priority: 1 
+Unloading 6 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 2.565500 ms
+
+Unloading 11 unused Assets to reduce memory usage. Loaded Objects now: 368.
+Total: 0.412500 ms (FindLiveObjects: 0.021300 ms CreateObjectMapping: 0.013100 ms MarkObjects: 0.231600 ms  DeleteObjects: 0.145500 ms)
+
+Parent of RectTransform is being set with parent property. Consider using the SetParent method instead, with the worldPositionStays argument set to false. This will retain local orientation and scale rather than world orientation and scale, which can prevent common UI scaling issues.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Connect: 10.249.151.191:8999
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Connect Suc
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+PlayerController singleton already created!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+born player: 2 pos: { "x": 167, "z": 153 }
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Parent of RectTransform is being set with parent property. Consider using the SetParent method instead, with the worldPositionStays argument set to false. This will retain local orientation and scale rather than world orientation and scale, which can prevent common UI scaling issues.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Player: { "pid": 2 }
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+202 count:　2
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Start Game
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Parent of RectTransform is being set with parent property. Consider using the SetParent method instead, with the worldPositionStays argument set to false. This will retain local orientation and scale rather than world orientation and scale, which can prevent common UI scaling issues.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Initialize engine version: 5.4.1f1 (649f48bbbf0f)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: NVIDIA GeForce RTX 3060 Laptop GPU (ID=0x2520)
+    Vendor:   NVIDIA
+    VRAM:     3072 MB
+Begin MonoManager ReloadAssembly
+Platform assembly: C:\Users\Shizheng\Desktop\Golang\tigerkin\demo_app\mmo_game\client\client_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\Shizheng\Desktop\Golang\tigerkin\demo_app\mmo_game\client\client_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\Shizheng\Desktop\Golang\tigerkin\demo_app\mmo_game\client\client_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\Shizheng\Desktop\Golang\tigerkin\demo_app\mmo_game\client\client_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\Shizheng\Desktop\Golang\tigerkin\demo_app\mmo_game\client\client_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\Users\Shizheng\Desktop\Golang\tigerkin\demo_app\mmo_game\client\client_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: C:\Users\Shizheng\Desktop\Golang\tigerkin\demo_app\mmo_game\client\client_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading C:\Users\Shizheng\Desktop\Golang\tigerkin\demo_app\mmo_game\client\client_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: C:\Users\Shizheng\Desktop\Golang\tigerkin\demo_app\mmo_game\client\client_Data\Managed\Google.Protobuf.dll (this message is harmless)
+Loading C:\Users\Shizheng\Desktop\Golang\tigerkin\demo_app\mmo_game\client\client_Data\Managed\Google.Protobuf.dll into Unity Child Domain
+Platform assembly: C:\Users\Shizheng\Desktop\Golang\tigerkin\demo_app\mmo_game\client\client_Data\Managed\protobuf-net.dll (this message is harmless)
+Loading C:\Users\Shizheng\Desktop\Golang\tigerkin\demo_app\mmo_game\client\client_Data\Managed\protobuf-net.dll into Unity Child Domain
+- Completed reload, in  0.042 seconds
+Platform assembly: C:\Users\Shizheng\Desktop\Golang\tigerkin\demo_app\mmo_game\client\client_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: C:\Users\Shizheng\Desktop\Golang\tigerkin\demo_app\mmo_game\client\client_Data\Managed\System.dll (this message is harmless)
+desktop: 2560x1600 60Hz; virtual: 6720x1998 at 0,0
+<RI> Initializing input.
+XInput1_3.dll not found. Trying XInput9_1_0.dll instead...
+<RI> Input initialized.
+<RI> Initialized touch support.
+UnloadTime: 0.583500 ms
+Setting up 4 worker threads for Enlighten.
+  Thread -> id: bfe4 -> priority: 1 
+  Thread -> id: b92c -> priority: 1 
+  Thread -> id: d2e0 -> priority: 1 
+  Thread -> id: a164 -> priority: 1 
+Unloading 6 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 2.337100 ms
+
+Unloading 11 unused Assets to reduce memory usage. Loaded Objects now: 368.
+Total: 0.431400 ms (FindLiveObjects: 0.022600 ms CreateObjectMapping: 0.012900 ms MarkObjects: 0.247500 ms  DeleteObjects: 0.147300 ms)
+
+Parent of RectTransform is being set with parent property. Consider using the SetParent method instead, with the worldPositionStays argument set to false. This will retain local orientation and scale rather than world orientation and scale, which can prevent common UI scaling issues.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Connect: 10.249.151.191:8999
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpb Line: 42)er
+: 3Connect Suc
+ 61, "z": 152 }bui
+ldslave/unity/build/arteifacts/generated/common/runtime/UnityEn/rungineDebugBindings.gen.cpp Line: 42)
+ PlayerCont
+
+roller singleton already created!
+ 
+(Filename: C:/bbiorn player: 3 pos: { "x": 161, "nerated/co
+mm
+on/runtime/Un/tyEbgineDebugBindings.gen.cpp Line: 42)
+
+rated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Paarent of RectTranform is being seet with parent propperty. Consider using the SetParent meethdod itnsd, with the worldPositioinSotays a rgument set too false. Thiis willl retiain lol olririentation  nd s cale rather than world orientation and scale, whichh can prrevent common UI scaling issues.
+ 
+(Filenaame: C:/bulildsleave/unityi/build/artifacts/generated/common/rmuntime/UnityEngineDebugBindings.gen.cpp Line:
+ 
+42)
+
+Player: { "pid": 3 }
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+202 count:　3
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Start Game
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Parent of RectTransform is being set with parent property. Consider using the SetParent method instead, with the worldPositionStays argument set to false. This will retain local orientation and scale rather than world orientation and scale, which can prevent common UI scaling issues.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Parent of RectTransform is being set with parent property. Consider using the SetParent method instead, with the worldPositionStays argument set to false. This will retain local orientation and scale rather than world orientation and scale, which can prevent common UI scaling issues.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Player: 3 lea 3 homee 
+(Fmenae:Fi:leunamse:v C:n/byuilids/lavie/cusniety/abudilod/anrtuifiactUs/tgengereatbed/icoimmson/nrupntiime:/4n2ty
+E
+ngineDebugBindings.gen.cpp Line: 42)
+
+Player: 2 leave home
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Initialize engine version: 5.4.1f1 (649f48bbbf0f)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: NVIDIA GeForce RTX 3060 Laptop GPU (ID=0x2520)
+    Vendor:   NVIDIA
+    VRAM:     3072 MB
+Begin MonoManager ReloadAssembly
+Platform assembly: C:\Users\Shizheng\Desktop\Golang\tigerkin\demo_app\mmo_game\client\client_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\Shizheng\Desktop\Golang\tigerkin\demo_app\mmo_game\client\client_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\Shizheng\Desktop\Golang\tigerkin\demo_app\mmo_game\client\client_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\Shizheng\Desktop\Golang\tigerkin\demo_app\mmo_game\client\client_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\Shizheng\Desktop\Golang\tigerkin\demo_app\mmo_game\client\client_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\Users\Shizheng\Desktop\Golang\tigerkin\demo_app\mmo_game\client\client_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: C:\Users\Shizheng\Desktop\Golang\tigerkin\demo_app\mmo_game\client\client_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading C:\Users\Shizheng\Desktop\Golang\tigerkin\demo_app\mmo_game\client\client_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: C:\Users\Shizheng\Desktop\Golang\tigerkin\demo_app\mmo_game\client\client_Data\Managed\Google.Protobuf.dll (this message is harmless)
+Loading C:\Users\Shizheng\Desktop\Golang\tigerkin\demo_app\mmo_game\client\client_Data\Managed\Google.Protobuf.dll into Unity Child Domain
+Platform assembly: C:\Users\Shizheng\Desktop\Golang\tigerkin\demo_app\mmo_game\client\client_Data\Managed\protobuf-net.dll (this message is harmless)
+Loading C:\Users\Shizheng\Desktop\Golang\tigerkin\demo_app\mmo_game\client\client_Data\Managed\protobuf-net.dll into Unity Child Domain
+- Completed reload, in  0.043 seconds
+Platform assembly: C:\Users\Shizheng\Desktop\Golang\tigerkin\demo_app\mmo_game\client\client_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: C:\Users\Shizheng\Desktop\Golang\tigerkin\demo_app\mmo_game\client\client_Data\Managed\System.dll (this message is harmless)
+desktop: 2560x1600 60Hz; virtual: 6720x1998 at 0,0
+<RI> Initializing input.
+XInput1_3.dll not found. Trying XInput9_1_0.dll instead...
+<RI> Input initialized.
+<RI> Initialized touch support.
+UnloadTime: 0.532900 ms
+Setting up 4 worker threads for Enlighten.
+  Thread -> id: ad18 -> priority: 1 
+  Thread -> id: bc38 -> priority: 1 
+  Thread -> id: 8484 -> priority: 1 
+  Thread -> id: b934 -> priority: 1 
+Unloading 6 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 2.346700 ms
+
+Unloading 11 unused Assets to reduce memory usage. Loaded Objects now: 368.
+Total: 0.338400 ms (FindLiveObjects: 0.020600 ms CreateObjectMapping: 0.008700 ms MarkObjects: 0.196000 ms  DeleteObjects: 0.112500 ms)
+
+Parent of RectTransform is being set with parent property. Consider using the SetParent method instead, with the worldPositionStays argument set to false. This will retain local orientation and scale rather than world orientation and scale, which can prevent common UI scaling issues.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Connect: 10.249.151.191:8999
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Connect Suc
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+PlayerController singleton already created!
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Player: { "pid": 1 }
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+202 count:　1
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Start Game
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+

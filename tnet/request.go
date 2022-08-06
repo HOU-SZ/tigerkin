@@ -3,8 +3,10 @@ package tnet
 import "github.com/HOU-SZ/tigerkin/tiface"
 
 type Request struct {
-	conn tiface.IConnection //已经和客户端建立好的链接
-	msg  tiface.IMessage    //客户端请求的数据
+	// 已经和客户端建立好的链接
+	conn tiface.IConnection
+	// 客户端请求的数据
+	msg tiface.IMessage
 }
 
 // 获取请求的链接信息

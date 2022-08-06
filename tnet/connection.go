@@ -95,7 +95,7 @@ func (c *Connection) StartReader() {
 			fmt.Println("read msg head error: ", err)
 			break
 		}
-		fmt.Printf("read headData: %+v\n", headData)
+		// fmt.Printf("read headData: %+v\n", headData)
 
 		// 拆包，得到msgId 和 dataLen 放在msg中
 		msg, err := dp.Unpack(headData)
@@ -141,7 +141,7 @@ func (c *Connection) StartReader() {
 		// V0.8 添加工作池机制，应对大量并发请求
 		if utils.GlobalObject.WorkerPoolSize > 0 {
 			// 已经启动工作池机制，将消息交给Worker处理
-			fmt.Println("Has started worker pool, send request to TaskQueue")
+			// fmt.Println("Has started worker pool, send request to TaskQueue")
 			c.MsgHandler.SendMsgToTaskQueue(&req)
 		} else {
 			// 未启用工作池机制，从绑定好的消息和对应的处理方法中执行对应的Handle方法
@@ -170,7 +170,7 @@ func (c *Connection) StartWriter() {
 					fmt.Println("Send Data error:, ", err, " Conn Writer exit")
 					return
 				}
-				fmt.Printf("Send data success! data = %+v\n", data)
+				// fmt.Printf("Send data success! data = %+v\n", data)
 			}
 
 		case data, ok := <-c.msgBuffChan:
