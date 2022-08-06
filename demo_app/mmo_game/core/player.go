@@ -170,7 +170,7 @@ func (p *Player) UpdatePos(x float32, y float32, z float32, v float32) {
 		WorldMgrObj.AoiMgr.RemovePidFromGrid(int(p.Pid), oldGid)
 		// 把pid添加到新的aoi格子中去
 		WorldMgrObj.AoiMgr.AddPidToGrid(int(p.Pid), newGid)
-
+		// 处理grid切换相关问题
 		p.OnExchangeAoiGrid(oldGid, newGid)
 	}
 
@@ -333,14 +333,14 @@ func (p *Player) LostConnection() {
 	主要是将pb的protobuf数据序列化之后发送
 */
 func (p *Player) SendMsg(msgId uint32, data proto.Message) {
-	fmt.Printf("before Marshal data = %+v\n", data)
+	// fmt.Printf("before Marshal data = %+v\n", data)
 	// 将proto Message结构体序列化，转换成二进制
 	msg, err := proto.Marshal(data)
 	if err != nil {
 		fmt.Println("marshal msg err: ", err)
 		return
 	}
-	fmt.Printf("after Marshal data = %+v\n", msg)
+	// fmt.Printf("after Marshal data = %+v\n", msg)
 
 	if p.Conn == nil {
 		fmt.Println("connection in player is nil")

@@ -12,8 +12,10 @@ import (
 	连接管理模块
 */
 type ConnManager struct {
-	connections map[uint32]tiface.IConnection // 管理的连接信息
-	connLock    sync.RWMutex                  // 读写连接的读写锁
+	// 管理的连接信息
+	connections map[uint32]tiface.IConnection
+	// 读写连接的读写锁
+	connLock sync.RWMutex
 }
 
 /*

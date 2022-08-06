@@ -12,9 +12,12 @@ import (
 	消息处理模块的实现
 */
 type MsgHandle struct {
-	Apis           map[uint32]tiface.IRouter // 存放每个MsgId 所对应的处理方法
-	WorkerPoolSize uint32                    // 业务工作Worker池的worker数量
-	TaskQueue      []chan tiface.IRequest    // Worker取任务的消息队列
+	// 存放每个MsgId 所对应的处理方法
+	Apis map[uint32]tiface.IRouter
+	// 业务工作Worker池的worker数量
+	WorkerPoolSize uint32
+	// Worker取任务的消息队列
+	TaskQueue []chan tiface.IRequest
 }
 
 // 创建MsgHandle的方法
@@ -29,13 +32,13 @@ func NewMsgHandle() *MsgHandle {
 // 将消息交给TaskQueue， 由worker进行处理
 func (mh *MsgHandle) SendMsgToTaskQueue(request tiface.IRequest) {
 	// 根据ConnID来分配当前的request应该由哪个worker负责处理
-	// 轮询的平均分配法则，保证每个worker所收到的request任务是均衡的
+	// 采用轮询的平均分配法则，保证每个worker所收到的request任务是均衡的
 	// 由哪个worker处理，把这个request发送给对应的TaskQueue即可
 	// TODO 目前只考虑单体应用，轮询分配，优化：分布式场景，优化分配方式，考虑区域，借鉴envoy负载均衡策略
 
 	// 得到需要处理此request的ConnID
 	workerID := request.GetConnection().GetConnID() % mh.WorkerPoolSize
-	fmt.Println("Add ConnID = ", request.GetConnection().GetConnID(), " request msgID = ", request.GetMsgID(), "to workerID = ", workerID)
+	// fmt.Println("Add ConnID = ", request.GetConnection().GetConnID(), " request msgID = ", request.GetMsgID(), "to workerID = ", workerID)
 	// 将请求消息发送给任务队列
 	mh.TaskQueue[workerID] <- request
 }
@@ -63,7 +66,7 @@ func (mh *MsgHandle) AddRouter(msgId uint32, router tiface.IRouter) {
 	}
 	// 2 添加msg与api的绑定关系
 	mh.Apis[msgId] = router
-	fmt.Println("Add api msgId = ", msgId, " success!")
+	// fmt.Println("[Tigerkin] Add api msgId = ", msgId, " success!")
 }
 
 // 启动worker工作池（只执行一次，因为一个框架只能有一个工作池）
@@ -80,7 +83,7 @@ func (mh *MsgHandle) StartWorkerPool() {
 
 // 启动一个worker
 func (mh *MsgHandle) StartOneWorker(workerID int, taskQueue chan tiface.IRequest) {
-	fmt.Println("Worker ID = ", workerID, " has started.")
+	fmt.Println("[Tigerkin] Worker ID = ", workerID, " has started.")
 	// 不断的等待队列中的消息
 	for {
 		select {

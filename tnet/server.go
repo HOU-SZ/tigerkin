@@ -9,6 +9,15 @@ import (
 	"github.com/HOU-SZ/tigerkin/utils"
 )
 
+var (
+	tigerkinLogo = `                                        
+		😝 👻 🐯  𝓣𝓲𝓰𝓮𝓻𝓴𝓲𝓷  🐯 👻 😝 
+                                        `
+	topLine    = `┌─────────────────────────────────────────────────────────────┐`
+	borderLine = `│         [Github] https://github.com/HOU-SZ/tigerkin         │`
+	bottomLine = `└─────────────────────────────────────────────────────────────┘`
+)
+
 //iServer 接口实现，定义一个Server服务类
 type Server struct {
 	//服务器的名称
@@ -44,7 +53,7 @@ func CallBackToClient(conn *net.TCPConn, data []byte, cnt int) error {
 
 //开启网络服务
 func (s *Server) Start() {
-	fmt.Printf("[Tigerkin] Server name: %s,listen at IP: %s, Port %d is starting\n", s.Name, s.IP, s.Port)
+	fmt.Printf("[Tigerkin] Server name: %s, listen at IP: %s, Port %d is starting\n", s.Name, s.IP, s.Port)
 	fmt.Printf("[Tigerkin] Version: %s, MaxConn: %d, MaxPacketSize: %d\n",
 		utils.GlobalObject.Version,
 		utils.GlobalObject.MaxConn,
@@ -70,7 +79,7 @@ func (s *Server) Start() {
 		}
 
 		// 已经监听成功
-		fmt.Println("Start Tigerkin server  ", s.Name, " success, now listenning...")
+		fmt.Println("[Tigerkin] Start Tigerkin server [", s.Name, "] success, now listenning...")
 
 		// TODO 应该有一个自动生成ID的方法
 		var cid uint32
@@ -105,7 +114,7 @@ func (s *Server) Start() {
 
 // 停止服务
 func (s *Server) Stop() {
-	fmt.Println("[STOP] Tigerkin server , name ", s.Name)
+	fmt.Println("[Tigerkin] Tigerkin server, name ", s.Name, "has STOPED!")
 
 	// 将其他需要清理的连接信息或者其他信息 也要一并停止或者清理
 	s.ConnMgr.ClearConn()
@@ -160,7 +169,8 @@ func (s *Server) CallOnConnStop(conn tiface.IConnection) {
 /*
   创建一个服务器句柄
 */
-func NewServer(name string) tiface.IServer {
+func NewServer() tiface.IServer {
+	printLogo()
 	// 由于import utils包时，会自动执行init操作，因此无需下面操作
 	// //先初始化全局配置文件
 	// utils.GlobalObject.Reload()
@@ -175,4 +185,11 @@ func NewServer(name string) tiface.IServer {
 	}
 
 	return s
+}
+
+func printLogo() {
+	fmt.Println(tigerkinLogo)
+	fmt.Println(topLine)
+	fmt.Println(borderLine)
+	fmt.Println(bottomLine)
 }

@@ -45,7 +45,7 @@ func OnConnectionLost(conn tiface.IConnection) {
 
 func main() {
 	// 创建服务器句柄
-	s := tnet.NewServer("MMO Game Tigerkin")
+	s := tnet.NewServer()
 
 	// 注册客户端连接建立和丢失函数
 	s.SetOnConnStart(OnConnecionAdd)
