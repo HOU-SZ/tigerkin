@@ -1,0 +1,7 @@
+{
+    "Name": "Tigerkin server example",
+    "Host": "127.0.0.1",
+    "TcpPort": 8999,
+    "MaxConn": 8,
+    "WorkerPoolSize": 8
+}

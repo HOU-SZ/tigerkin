@@ -34,6 +34,8 @@ type GlobalObj struct {
 	MaxWorkerTaskLen uint32 //每个worker对应的消息队列中任务数量的最大值
 
 	MaxMsgChanLen uint32 //SendBuffMsg发送消息的缓冲最大长度
+
+	ConfFilePath string // 配置文件路径
 }
 
 /*
@@ -44,10 +46,10 @@ var GlobalObject *GlobalObj
 //读取用户的配置文件
 func (g *GlobalObj) Reload() {
 
-	data, err := ioutil.ReadFile("conf/tigerkin.json")
+	data, err := ioutil.ReadFile(g.ConfFilePath)
 	if err != nil {
 		if os.IsNotExist(err) {
-			log.Warn("The file tigerkin.json doesn't exist, will use default config.")
+			log.Warn("The config file /conf/tigerkin.json doesn't exist, will use default config.")
 			return
 		} else {
 			panic(err)
@@ -55,7 +57,7 @@ func (g *GlobalObj) Reload() {
 	}
 	//将json数据解析到struct中
 	//fmt.Printf("json :%s\n", data)
-	err = json.Unmarshal(data, &GlobalObject)
+	err = json.Unmarshal(data, g)
 	if err != nil {
 		panic(err)
 	}
@@ -65,6 +67,10 @@ func (g *GlobalObj) Reload() {
 	提供init方法，默认加载，初始化当前的GlobalObject
 */
 func init() {
+	pwd, err := os.Getwd()
+	if err != nil {
+		pwd = "."
+	}
 	//初始化GlobalObject变量，设置一些默认值
 	GlobalObject = &GlobalObj{
 		Name:          "TigerkinServerApp",
@@ -77,6 +83,8 @@ func init() {
 		WorkerPoolSize:   10,
 		MaxWorkerTaskLen: 1024,
 		MaxMsgChanLen:    1024,
+
+		ConfFilePath: pwd + "/conf/tigerkin.json",
 	}
 
 	//从配置文件conf/tigerkin.json中加载一些用户配置的参数
