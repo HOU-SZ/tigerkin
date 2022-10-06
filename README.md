@@ -322,14 +322,14 @@ func (dp *DataPack) Unpack(binaryData []byte) (tiface.IMessage, error)
 ## Configuration
 All configuration items are as following, and can be set by a configuration file. 
 
-- Name: Server Name
-- Host: Server IP
-- TcpPort: Server Port
-- MaxConn: Maximum number of client connections allowed
-- WorkerPoolSize: Maximum number of workers in the worker pool
-- MaxPacketSize: Maximum size of every message packet
-- MaxWorkerTaskLen: The maximum number of tasks in the message queue corresponding to each worker
-- MaxMsgChanLen: Maximum buffer length for sending messages message to client with buffer
+- `Name`: Server Name
+- `Host`: Server IP
+- `TcpPort`: Server Port
+- `MaxConn`: Maximum number of client connections allowed
+- `WorkerPoolSize`: Maximum number of workers in the worker pool
+- `MaxPacketSize`: Maximum size of every message packet
+- `MaxWorkerTaskLen`: The maximum number of tasks in the message queue corresponding to each worker
+- `MaxMsgChanLen`: Maximum buffer length for sending messages message to client with buffer
 
 A simple example of a configuration file is as follows. Please place the configuration file in the conf path and name it tigerkin.json.
 ```json
@@ -340,4 +340,141 @@ A simple example of a configuration file is as follows. Please place the configu
     "MaxConn": 8,
     "WorkerPoolSize": 8
 }
+```
+
+## Examples
+### 1. Simple Ping-Pong Application
+The code of the simple ping-pong application is in the [examples folder](examples)
+
+#### Start the server
+```bash
+cd examples/server
+go run main.go
+```
+Once the server starts successfully, the terminal will display the following information:
+```bash
+
+                😝 👻 🐯  𝓣𝓲𝓰𝓮𝓻𝓴𝓲𝓷  🐯 👻 😝
+
+┌─────────────────────────────────────────────────────────────┐
+│         [Github] https://github.com/HOU-SZ/tigerkin         │
+└─────────────────────────────────────────────────────────────┘
+[Tigerkin] Server name: Tigerkin server example, listen at IP: 127.0.0.1, Port 8999 is starting
+[Tigerkin] Version: V0.11, MaxConn: 8, MaxPacketSize: 4096
+[Tigerkin] Worker ID =  0  has started.
+[Tigerkin] Worker ID =  1  has started.
+[Tigerkin] Worker ID =  4  has started.
+[Tigerkin] Worker ID =  3  has started.
+[Tigerkin] Worker ID =  5  has started.
+[Tigerkin] Worker ID =  6  has started.
+[Tigerkin] Worker ID =  7  has started.
+[Tigerkin] Worker ID =  2  has started.
+[Tigerkin] Start Tigerkin server [ Tigerkin server example ] success, now listenning...
+```
+
+#### Start the client
+```bash
+cd examples/client
+go run main.go
+```
+
+Once the client starts successfully, the client terminal will display corresponding log information:
+```bash
+==> Test Router:[Ping] Recv Msg: ID= 2 , len= 21 , data= DoConnection BEGIN...
+==> Test Router:[Ping] Recv Msg: ID= 0 , len= 4 , data= pong
+==> Test Router:[Ping] Recv Msg: ID= 0 , len= 4 , data= pong
+==> Test Router:[Ping] Recv Msg: ID= 0 , len= 4 , data= pong
+==> Test Router:[Ping] Recv Msg: ID= 0 , len= 4 , data= pong
+...
+```
+The server terminal will also display corresponding log information:
+```bash
+Get client connection, remote address =  127.0.0.1:59414
+connection with connID =  0 has been added to ConnManager successfully: conn num =  1
+------Call onConnStart()------
+DoConnecionBegin is Called ...
+Set Connection Name, Home done!
+[Writer Goroutine is running]
+[Reader Goroutine is running]
+Call PingRouter Handle
+recv from client : msgId= 0 , data= Tigerkin client example test MsgID=0, [Ping]
+Call PingRouter Handle
+recv from client : msgId= 0 , data= Tigerkin client example test MsgID=0, [Ping]
+Call PingRouter Handle
+recv from client : msgId= 0 , data= Tigerkin client example test MsgID=0, [Ping]
+Call PingRouter Handle
+recv from client : msgId= 0 , data= Tigerkin client example test MsgID=0, [Ping]
+...
+```
+### 2. Simple Massively Multiplayer Online (MMO) Game Application
+The code of the simple mmo game application is in the [demo_app/mmo_game folder](demo_app/mmo_game). The server part of the application was written with the tigerkin framework. The client part of the application was written with the Unity framework. Funtions implemented by the game application includes: player online/offline, real-time moving, real-time chat. The data format of the communication between the client and the server is defined by the protobuf protocol.
+
+#### Start the server
+```bash
+cd demo_app/mmo_game
+go run server.go
+```
+
+Once the server starts successfully, the terminal will display the following information:
+```bash
+
+                😝 👻 🐯  𝓣𝓲𝓰𝓮𝓻𝓴𝓲𝓷  🐯 👻 😝
+
+┌─────────────────────────────────────────────────────────────┐
+│         [Github] https://github.com/HOU-SZ/tigerkin         │
+└─────────────────────────────────────────────────────────────┘
+[Tigerkin] Server name: MMO Game, listen at IP: 0.0.0.0, Port 8999 is starting
+[Tigerkin] Version: V0.11, MaxConn: 100, MaxPacketSize: 4096
+[Tigerkin] Worker ID =  0  has started.
+[Tigerkin] Worker ID =  1  has started.
+[Tigerkin] Worker ID =  3  has started.
+[Tigerkin] Worker ID =  4  has started.
+[Tigerkin] Worker ID =  2  has started.
+[Tigerkin] Worker ID =  5  has started.
+[Tigerkin] Worker ID =  6  has started.
+[Tigerkin] Worker ID =  7  has started.
+[Tigerkin] Start Tigerkin server [ MMO Game ] success, now listenning...
+```
+
+#### Start the client
+```bash
+cd demo_app/mmo_game/client
+client.exe
+```
+The client will starts with the following window, click play! button:
+
+![client start](demo_app/mmo_game/demo_pictures/client_start.png)
+
+Change IP and Port correspondingly, and click connect button:
+
+![client start_2](demo_app/mmo_game/demo_pictures/client_start_2.png)
+
+When the following window appears, it means that the client has started successfully:
+
+![player_1](demo_app/mmo_game/demo_pictures/player_1.png)
+
+Next, start clients for other players.
+
+![player_2](demo_app/mmo_game/demo_pictures/player_2.jpg)
+
+Change the player's view: Click the right mouse button.
+
+Move the player's position: Press down Ctrl+W/A/S/D.
+
+Chat with other players: Text some messages and send.
+
+The server terminal will also display corresponding log information:
+```bash
+Get client connection, remote address =  192.168.0.108:50360
+connection with connID =  0 has been added to ConnManager successfully: conn num =  1
+------Call onConnStart()------
+[Writer Goroutine is running]
+[Reader Goroutine is running]
+=====> Player pidId =  1  arrived ====
+Get client connection, remote address =  192.168.0.108:50371
+connection with connID =  1 has been added to ConnManager successfully: conn num =  2
+[Reader Goroutine is running]
+------Call onConnStart()------
+[Writer Goroutine is running]
+=====> Player pidId =  2  arrived ====
 ```
